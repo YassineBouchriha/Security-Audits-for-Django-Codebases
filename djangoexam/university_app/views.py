@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Student, Teacher, Course, Exam
-from .serializers import StudentSerializer, TeacherSerializer, CourseSerializer, ExamSerializer
+from .models import Student, Teacher, Course, Exam , CodeSnapshot
+from .serializers import StudentSerializer, TeacherSerializer, CourseSerializer, ExamSerializer , CodeSnapshotSerializer
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
@@ -17,3 +17,11 @@ class CourseViewSet(viewsets.ModelViewSet):
 class ExamViewSet(viewsets.ModelViewSet):
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
+
+class CodeSnapshotViewSet(viewsets.ModelViewSet):
+    queryset = CodeSnapshot.objects.all()
+    serializer_class = CodeSnapshotSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(uploaded_by=self.request.user)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student, Teacher, Course, Exam
+from .models import Student, Teacher, Course, Exam , CodeSnapshot
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,9 @@ class ExamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exam
         fields = '__all__'
+
+class CodeSnapshotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CodeSnapshot
+        fields = '__all__'
+        read_only_fields = ['uploaded_by', 'uploaded_at']

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
@@ -33,6 +34,10 @@ class Exam(models.Model):
     def __str__(self):
         return f"Exam for {self.course.title} on {self.date}"
 
+class CodeSnapshot(models.Model):
+    file = models.FileField(upload_to='code_snapshots/')
+    uploaded_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 # Placeholder for other models
 # class Department(models.Model): ...
 # class Assignment(models.Model): ...
